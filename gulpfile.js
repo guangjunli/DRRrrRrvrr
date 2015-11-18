@@ -65,7 +65,8 @@ gulp.task('test', ['karma', 'jshint']);
 gulp.task('connect', function(){
   connect.server({
     root: 'dist',
-    livereload: true
+    livereload: true,
+    port: 8000
   });
 });
 
