@@ -1,5 +1,5 @@
 angular.module('googleDRRrrRrvrr')
-.directive('googleAuthButton', ['$window', 'GD_CLIENT_ID', 'GD_SCOPES', function($window, GD_CLIENT_ID, GD_SCOPES) {
+.directive('googleAuthButton', ['$window', 'gooleDriveConfig', function($window, gooleDriveConfig) {
 
   var authorizeButton;
 
@@ -55,7 +55,7 @@ angular.module('googleDRRrrRrvrr')
             element.append(authorizeButton);
             authorizeButton.bind('click', function() {
               gapi.auth.authorize(
-                {client_id: GD_CLIENT_ID, scope: GD_SCOPES, immediate: false},
+                {client_id: gooleDriveConfig.CLIENT_ID, scope: gooleDriveConfig.SCOPES, immediate: false},
                 handleAuthResult);
             });
           }
@@ -65,8 +65,8 @@ angular.module('googleDRRrrRrvrr')
       $window.initGoogleApi = function() {
         gapi.auth.authorize(
           {
-            'client_id': GD_CLIENT_ID,
-            'scope': GD_SCOPES.join(' '),
+            'client_id': gooleDriveConfig.CLIENT_ID,
+            'scope': gooleDriveConfig.SCOPES.join(' '),
             'immediate': true
           }, handleAuthResult);
       };
