@@ -7,5 +7,3 @@ angular.module('googleDRRrrRrvrr')
     SCOPES: ['https://www.googleapis.com/auth/drive.readonly']
   };
 });
-
-;

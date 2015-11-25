@@ -3,41 +3,9 @@ angular.module('googleDRRrrRrvrr')
 
   var authorizeButton;
 
-  function appendLink(id, text){
-    if(id != ''){
-      var li = $('<li></li>');
-      var link = $('<a></a>');
-      link.attr('href', '/doc.html#'+id);
-      link.html(text);
-      li.append(link);
-      $('#output ul').append(li);
-    } else {
-      $('#output').append(text);
-    }
-  }
-
-  function listFiles() {
-    var request = gapi.client.drive.files.list({
-        'maxResults': 10,
-        'q': "mimeType = 'application/vnd.google-apps.document'"
-      });
-
-      request.execute(function(resp) {
-        var files = resp.items;
-        if (files && files.length > 0) {
-          for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            appendLink(file.id, file.title);
-          }
-        } else {
-          appendLink('', 'No files found.');
-        }
-      });
-  };
-
   return {
     restrict: 'E',
-    scope: {},
+    scope: {callback: '&postAuth'},
     link: function(scope, element, attrs) {
       var handleAuthResult = function(authResult) {
         if (authResult && !authResult.error) {
@@ -45,7 +13,23 @@ angular.module('googleDRRrrRrvrr')
           if (authorizeButton) {
             authorizeButton.remove();
           }
-          gapi.client.load('drive', 'v2', listFiles);
+
+          //PAY ATTENTION TO NORMALIZED ATTR NAME
+          //var postAuthorizationCallback = attrs['post-auth'];
+          /*
+          var postAuthorizationCallback = attrs['postAuth'];
+          if (postAuthorizationCallback) {
+            postAuthorizationCallback();
+          }
+          */
+          //the above approach does not work giving error that is not function.
+          //changed based on reference below. note the scope: change above
+          //http://stackoverflow.com/questions/17556703/angularjs-directive-call-function-specified-in-attribute-and-pass-an-argument-to
+
+          var postAuthorizationCallback = scope.callback();
+          if (postAuthorizationCallback) {
+            postAuthorizationCallback();
+          }
 
         } else {
           // Show auth button, allowing the user to initiate authorization by clicking it
