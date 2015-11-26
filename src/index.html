@@ -7,16 +7,10 @@
     <script src="app.js"></script>
     <script src="https://apis.google.com/js/client.js?onload=gapiOnLoadCallback"></script>
   </head>
-  <body class="container" ng-controller="DocumentListController as vm">
+  <body class="container">
     <h1>Hello Google DRRrrRrvrr!</h1>
-    <div id="authorize-div">
-      <!--Button for the user to click to initiate auth sequence -->
-      <google-auth-button message="Authorize access to Google Drive" post-auth="vm.listDocuments"></google-auth-button>
-    </div>
+    <div ng-view class="well"></div>
 
-    <div id="output" class="well">
-      <ul></ul>
-    </div>
 
   </body>
 </html>

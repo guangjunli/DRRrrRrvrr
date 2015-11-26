@@ -1,22 +1,15 @@
 'use strict';
 
 angular.module('googleDRRrrRrvrr')
-.controller('DocumentListController', ['googleDriveService', '$log', function(googleDriveService, $log) {
-  var vm = this;
+.controller('DocumentListController',
+  ['googleDriveService', '$scope', '$location', function(googleDriveService, $scope, $location) {
 
-  function appendLink(id, text){
-    if(id != ''){
-      var li = $('<li></li>');
-      var link = $('<a></a>');
-      link.attr('href', '/doc.html#'+id);
-      console.log('id ' + id);
-      link.html(text);
-      li.append(link);
-      $('#output ul').append(li);
-    } else {
-      $('#output').append(text);
-    }
-  }
+  var vm = this;
+  vm.files = [];
+
+  //TODO added this flag to prevent "no file found" message from appearing
+  //before loading completes. is this the best way?
+  vm.loaded = false;
 
   vm.listDocuments = function() {
     //TODO the init call here is kind of weird, but the service
@@ -26,14 +19,25 @@ angular.module('googleDRRrrRrvrr')
     googleDriveService.listDocuments().then(function(result) {
       var files = result.items;
       if (files && files.length > 0) {
+        //TODO try mapping the array :)
         for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          appendLink(file.id, file.title);
+          vm.files.push({id: files[i].id, title: files[i].title});
         }
-      } else {
-        appendLink('', 'No files found.');
+
+        vm.loaded = true;
+
+        //TODO is it good/efficient to leave the body empty?
+        //need to better understand the $digest loop
+        $scope.$apply(function() {
+        });
       }
     });
-  }
+  };
+
+  $scope.$on("$routeChangeSuccess", function () {
+    if ($location.path().indexOf("/list") == 0) {
+      vm.listDocuments();
+    }
+  });
 
 }]);

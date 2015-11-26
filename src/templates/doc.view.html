@@ -1,0 +1,9 @@
+<div ng-controller="DocumentDisplayController as vm">
+  <div id="authorize-div">
+    <google-auth-button message="Authorize access to Google Drive" post-auth="vm.displayDocument"></google-auth-button>
+  </div>
+
+  <div id="output" class="well">
+    {{vm.fileContent}}
+  </div>
+</div>
