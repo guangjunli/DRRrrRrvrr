@@ -1,4 +1,4 @@
-angular.module('googleDRRrrRrvrr', ['ngRoute']);
+angular.module('googleDRRrrRrvrr', ['ngRoute', 'ngSanitize']);
 
 
 angular.module('googleDRRrrRrvrr')
