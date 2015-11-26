@@ -1,5 +1,5 @@
 angular.module('googleDRRrrRrvrr')
-.directive('googleAuthButton', ['$window', 'gooleDriveConfig', function($window, gooleDriveConfig) {
+.directive('googleAuthButton', ['$window', 'gooleDriveConfig', 'googleApiReadyService', function($window, gooleDriveConfig, googleApiReadyService) {
 
   var authorizeButton;
 
@@ -7,6 +7,7 @@ angular.module('googleDRRrrRrvrr')
     restrict: 'E',
     scope: {callback: '&postAuth'},
     link: function(scope, element, attrs) {
+
       var handleAuthResult = function(authResult) {
         if (authResult && !authResult.error) {
           //don't show the authorize button
@@ -46,7 +47,11 @@ angular.module('googleDRRrrRrvrr')
         }
       };
 
-      $window.initGoogleApi = function() {
+      googleApiReadyService.getAuth().then(function(authResult) {
+        handleAuthResult(authResult);
+      });
+      /*
+      $window.authGoogleApi = function() {
         gapi.auth.authorize(
           {
             'client_id': gooleDriveConfig.CLIENT_ID,
@@ -54,6 +59,7 @@ angular.module('googleDRRrrRrvrr')
             'immediate': true
           }, handleAuthResult);
       };
+      */
     }
   };
 }]);

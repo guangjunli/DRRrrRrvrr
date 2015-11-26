@@ -2,7 +2,8 @@
 
 angular.module('googleDRRrrRrvrr')
 .controller('DocumentListController',
-  ['googleDriveService', '$scope', '$location', function(googleDriveService, $scope, $location) {
+  ['googleApiReadyService', 'googleDriveService', '$scope', '$location',
+    function(googleApiReadyService, googleDriveService, $scope, $location) {
 
   var vm = this;
   vm.files = [];

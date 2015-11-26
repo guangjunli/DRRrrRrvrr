@@ -19,7 +19,7 @@ angular.module('googleDRRrrRrvrr')
   });
 
   $routeProvider.otherwise({
-    templateUrl: "/templates/docs.list.html"
+    redirectTo: '/list'
   });
 }]);
 

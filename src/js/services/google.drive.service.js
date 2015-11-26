@@ -1,16 +1,13 @@
 angular.module('googleDRRrrRrvrr')
-.factory('googleDriveService', ['$http', function($http) {
+.factory('googleDriveService', ['$http', '$window', 'googleApiReadyService', function($http, $window, googleApiReadyService) {
 
   var googleApiClient;
 
   return {
-    init: function() {
-      googleApiClient = gapi.client.load('drive', 'v2');
-    },
-
     listDocuments: function() {
-      this.init();
-      return googleApiClient.then(function() {
+      return googleApiReadyService.getClient().then(function() {
+        return gapi.client.load('drive', 'v2');
+      }).then(function() {
         //executes after api client loads
         var request = gapi.client.drive.files.list({
             'maxResults': 10,
@@ -26,9 +23,9 @@ angular.module('googleDRRrrRrvrr')
     },
 
     loadDocument: function(fileId) {
-      this.init();
-
-      return googleApiClient.then(function() {
+      return googleApiReadyService.getClient().then(function() {
+        return gapi.client.load('drive', 'v2');
+      }).then(function() {
         //executes after api client loads
         var request = gapi.client.drive.files.get({fileId: fileId});
 
