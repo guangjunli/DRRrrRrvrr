@@ -1,9 +1,4 @@
 <div ng-controller="DocumentListController as vm">
-  <div id="authorize-div">
-    <!--Button for the user to click to initiate auth sequence -->
-    <google-auth-button message="Authorize access to Google Drive" post-auth="vm.listDocuments"></google-auth-button>
-  </div>
-
   <div id="output" class="well" ng-cloak>
     <ul>
       <li ng-repeat="file in vm.files track by $index">

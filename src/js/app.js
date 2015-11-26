@@ -1,6 +1,5 @@
 angular.module('googleDRRrrRrvrr', ['ngRoute', 'ngSanitize']);
 
-
 angular.module('googleDRRrrRrvrr')
 /*.config(function($locationProvider) {
   $locationProvider.html5Mode({
@@ -24,5 +23,5 @@ angular.module('googleDRRrrRrvrr')
 }]);
 
 var gapiOnLoadCallback = function() {
-  window.initGoogleApi();
+  window.authGoogleApi();
 }

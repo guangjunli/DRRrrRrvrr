@@ -18,8 +18,10 @@ angular.module('googleDRRrrRrvrr')
           vm.fileContent = 'No content!';
         }
 
+        /*
         $scope.$apply(function() {
         });
+        */
       });
     }
   };

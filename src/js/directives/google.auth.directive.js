@@ -31,6 +31,7 @@ angular.module('googleDRRrrRrvrr')
           if (postAuthorizationCallback) {
             postAuthorizationCallback();
           }
+          googleApiReadyService.clientReady();
 
         } else {
           // Show auth button, allowing the user to initiate authorization by clicking it
@@ -47,10 +48,6 @@ angular.module('googleDRRrrRrvrr')
         }
       };
 
-      googleApiReadyService.getAuth().then(function(authResult) {
-        handleAuthResult(authResult);
-      });
-      /*
       $window.authGoogleApi = function() {
         gapi.auth.authorize(
           {
@@ -59,7 +56,6 @@ angular.module('googleDRRrrRrvrr')
             'immediate': true
           }, handleAuthResult);
       };
-      */
     }
   };
 }]);

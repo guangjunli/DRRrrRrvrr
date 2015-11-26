@@ -9,6 +9,12 @@
   </head>
   <body class="container">
     <h1>Hello Google DRRrrRrvrr!</h1>
+    <!--since the post-auto callback does not need to be specified per template, refactored
+        it out here to index.html -->
+    <div id="authorize-div">
+      <google-auth-button message="Authorize access to Google Drive"></google-auth-button>
+    </div>
+
     <div ng-view></div>
 
 

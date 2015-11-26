@@ -12,6 +12,10 @@ angular.module('googleDRRrrRrvrr')
   //before loading completes. is this the best way?
   vm.loaded = false;
 
+  vm.noop = function() {
+
+  };
+
   vm.listDocuments = function() {
     //TODO the init call here is kind of weird, but the service
     //cannot initialize itself - the google api loading is done in
@@ -29,8 +33,10 @@ angular.module('googleDRRrrRrvrr')
 
         //TODO is it good/efficient to leave the body empty?
         //need to better understand the $digest loop
+        /*
         $scope.$apply(function() {
         });
+        */
       }
     });
   };
