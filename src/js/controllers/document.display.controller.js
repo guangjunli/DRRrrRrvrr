@@ -2,7 +2,7 @@
 
 angular.module('googleDRRrrRrvrr')
 .controller('DocumentDisplayController',
-  ['googleDriveService', '$scope', '$location', '$routeParams', function(googleDriveService, $scope, $location, $routeParams) {
+  ['googleDriveService', 'zombifyService', '$scope', '$location', '$routeParams', function(googleDriveService, zombifyService, $scope, $location, $routeParams) {
 
   var vm = this;
 
@@ -13,7 +13,12 @@ angular.module('googleDRRrrRrvrr')
       var fileId = $routeParams["id"];
       googleDriveService.loadDocument(fileId).then(function(data) {
         if (data) {
+          zombifyService.zombify(data).then(function(zombieMessage) {
+            console.log(zombieMessage);
+          });
+
           vm.fileContent = data.replace(/\n/g, "<br>");
+
         } else {
           vm.fileContent = 'No content!';
         }

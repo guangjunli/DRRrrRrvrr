@@ -22,6 +22,9 @@ angular.module('googleDRRrrRrvrr')
   });
 }]);
 
+angular.module('googleDRRrrRrvrr')
+.constant('ZOMBIFY_BASE_URL', 'http://ancient-anchorage-9224.herokuapp.com/zombify?q=');
+
 var gapiOnLoadCallback = function() {
   window.authGoogleApi();
 }
