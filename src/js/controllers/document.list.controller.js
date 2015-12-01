@@ -37,6 +37,7 @@ angular.module('googleDRRrrRrvrr')
         $scope.$apply(function() {
         });
         */
+        //TODO why the above has to be commented out when routing was introduced??
       }
     });
   };

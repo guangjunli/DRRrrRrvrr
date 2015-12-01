@@ -14,19 +14,15 @@ angular.module('googleDRRrrRrvrr')
       googleDriveService.loadDocument(fileId).then(function(data) {
         if (data) {
           zombifyService.zombify(data).then(function(zombieMessage) {
-            console.log(zombieMessage);
+            vm.zombieContent = zombieMessage;
           });
 
           vm.fileContent = data.replace(/\n/g, "<br>");
 
         } else {
           vm.fileContent = 'No content!';
+          vm.zombieContent = '';
         }
-
-        /*
-        $scope.$apply(function() {
-        });
-        */
       });
     }
   };

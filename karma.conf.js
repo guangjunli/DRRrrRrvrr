@@ -16,7 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'bower_components/jquery/dist/jquery.min.js',
-      'bower_components/bootstrap/dist/bootstrap.min.js',
+      'bower_components/bootstrap/dist/js/bootstrap.min.js',
       'bower_components/angular/angular.min.js',
       'bower_components/angular-route/angular-route.min.js',
       'bower_components/angular-sanitize/angular-sanitize.min.js',

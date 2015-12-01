@@ -1,4 +1,8 @@
 <div ng-controller="DocumentDisplayController as vm">
-  <div id="output" class="well" ng-bind-html="vm.fileContent">
+  <span>Content</span>
+  <div id="output" class="well doc-content" ng-bind-html="vm.fileContent">
+  </div>
+  <span>Zombified Content</span>
+  <div id="output" class="well doc-content" ng-bind-html="vm.zombieContent">
   </div>
 </div>
