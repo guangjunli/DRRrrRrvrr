@@ -1,4 +1,12 @@
 <div ng-controller="DocumentListController as vm">
+  <div >
+    <label for="maxResults">Number of documents to retrieve:</label>
+    <input type="text" name="maxResultsField" id="maxResults" maxlength="2" size="2"
+      required ng-model="vm.maxNumberOfResults"
+      ng-blur="vm.listDocuments()"
+      ng-keypress="($event.which === 13) ? vm.listDocuments() : 0">
+  </div>
+
   <div id="output" class="well" ng-cloak>
     <ul>
       <li ng-repeat="file in vm.files track by $index">

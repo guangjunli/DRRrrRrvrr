@@ -5,6 +5,7 @@ angular.module('googleDRRrrRrvrr')
 
   var vm = this;
   vm.files = [];
+  vm.maxNumberOfResults = googleDriveService.maxNumberOfResults;
 
   //TODO added this flag to prevent "no file found" message from appearing
   //before loading completes. is this the best way?
@@ -19,7 +20,10 @@ angular.module('googleDRRrrRrvrr')
     //cannot initialize itself - the google api loading is done in
     //the auth directive code ... need to understand the sequence
 
+    googleDriveService.maxNumberOfResults = vm.maxNumberOfResults;
+    
     googleDriveService.listDocuments().then(function(result) {
+      vm.files = [];
       var files = result.items;
       if (files && files.length > 0) {
         //TODO try mapping the array :)
