@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('googleDRRrrRrvrr')
 .controller('DocumentListController',
   ['googleApiReadyService', 'googleDriveService', '$scope', '$location',
@@ -43,7 +41,7 @@ angular.module('googleDRRrrRrvrr')
   };
 
   $scope.$on("$routeChangeSuccess", function () {
-    if ($location.path().indexOf("/list") == 0) {
+    if ($location.path().indexOf("/list") === 0) {
       vm.listDocuments();
     }
   });

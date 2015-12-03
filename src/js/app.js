@@ -25,6 +25,11 @@ angular.module('googleDRRrrRrvrr')
 angular.module('googleDRRrrRrvrr')
 .constant('ZOMBIFY_BASE_URL', 'http://ancient-anchorage-9224.herokuapp.com/zombify?q=');
 
+//this is referenced in index.html
+//<script src="https://apis.google.com/js/client.js?onload=gapiOnLoadCallback"></script>
+//the comment below is to prevent jshint to reporting 'gapiOnLoadCallback' is defined but never used.
+/* exported gapiOnLoadCallback */
 var gapiOnLoadCallback = function() {
+  //the global authGoogleApi is defined in googleAuthButton directive
   window.authGoogleApi();
-}
+};

@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('googleDRRrrRrvrr')
 .factory('gooleDriveConfig', function() {
   return {

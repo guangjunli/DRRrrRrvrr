@@ -14,5 +14,5 @@ angular.module('googleDRRrrRrvrr')
         return "zombifyService failed.";
       });
     }
-  }
+  };
 }]);

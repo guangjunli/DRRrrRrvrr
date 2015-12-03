@@ -1,8 +1,6 @@
 angular.module('googleDRRrrRrvrr')
 .factory('googleDriveService', ['$http', '$window', 'googleApiReadyService', function($http, $window, googleApiReadyService) {
 
-  var googleApiClient;
-
   return {
     listDocuments: function() {
       return googleApiReadyService.getClient().then(function() {

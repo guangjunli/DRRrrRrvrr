@@ -36,7 +36,7 @@ angular.module('googleDRRrrRrvrr')
         } else {
           // Show auth button, allowing the user to initiate authorization by clicking it
           if (! authorizeButton) {
-            var messsage = attrs['message'] || 'Authorize access to Google Drive API';
+            var messsage = attrs.message || 'Authorize access to Google Drive API';
             authorizeButton = angular.element('<button>' + messsage +'</button>');
             element.append(authorizeButton);
             authorizeButton.bind('click', function() {
