@@ -1,5 +1,6 @@
 angular.module('googleDRRrrRrvrr')
-.factory('googleDriveService', ['$http', 'googleApiReadyService', function($http, googleApiReadyService) {
+.factory('googleDriveService',
+  ['$http', 'googleApiReadyService', 'googleApiService', function($http, googleApiReadyService, googleApiService) {
 
   return {
     //save the value here so it's kept when list controller is re-created whenever
@@ -11,17 +12,12 @@ angular.module('googleDRRrrRrvrr')
 
       return googleApiReadyService.getClient()
         .then(function() {
-          return gapi.client.load('drive', 'v2');
+          return googleApiService.loadDrive();
         })
         .then(function() {
-          //executes after api client loads
-          return gapi.client.drive.files.list({
-              'maxResults': that.maxNumberOfResults,
-              'q': "mimeType = 'application/vnd.google-apps.document'"
-          });
+          return googleApiService.listDriveDocuments(that.maxNumberOfResults);
         })
         .then(function(resp) {
-          //response for the request
           return resp.result;
         });
     },
@@ -29,26 +25,17 @@ angular.module('googleDRRrrRrvrr')
     loadDocument: function(fileId) {
       return googleApiReadyService.getClient()
         .then(function() {
-          return gapi.client.load('drive', 'v2');
+          return googleApiService.loadDrive();
         })
         .then(function() {
-          //executes after api client loads
-          return gapi.client.drive.files.get({fileId: fileId});
+          return googleApiService.loadDriveDocument(fileId);
         })
-        .then(function(resp) {
-          var accessToken = gapi.auth.getToken().access_token;
-
-          return $http({
-            url: resp.result.exportLinks["text/plain"],
-            method: "GET",
-            headers: {
-              'Authorization': "Bearer " + accessToken
-            }
-          });
-        })
+        //the line between googleDriveService and googleApiService is quite blurred
+        //the handling below could be put in googleApiService as well.
         .then(function(data) {
           return data.data;
         });
+
     }
   };
 }]);
