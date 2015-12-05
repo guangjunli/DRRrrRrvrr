@@ -15,5 +15,6 @@
     </ul>
 
     <span ng-show="vm.loaded && vm.files.length === 0">No files found.</span>
+    <span class="alert alert-danger" ng-show="vm.failedToLoad">{{vm.failedToLoad}}</span>
   </div>
 </div>

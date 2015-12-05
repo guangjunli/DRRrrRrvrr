@@ -16,3 +16,7 @@ var gapiOnLoadCallback = function() {
   //the global authGoogleApi is defined in googleAuthButton directive
 ==  window.authGoogleApi();
 };
+
+
+12-4
+indicate loading error on UI through failedToLoad field in DocumentListController

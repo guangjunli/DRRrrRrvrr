@@ -16,6 +16,10 @@ angular.module('googleDRRrrRrvrr')
     //resolve message. so this is put in just for some fun.
     clientReady: function(message) {
       deferredClient.resolve(message || "google client loaded");
+    },
+
+    clientFailedToLoad: function(message) {
+      deferredClient.reject(message || "google client failed to load");
     }
   };
 
