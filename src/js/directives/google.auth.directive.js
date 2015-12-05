@@ -1,5 +1,7 @@
 angular.module('googleDRRrrRrvrr')
-.directive('googleAuthButton', ['$window', 'gooleDriveConfig', 'googleApiReadyService', function($window, gooleDriveConfig, googleApiReadyService) {
+.directive('googleAuthButton',
+  ['$window', 'gooleDriveConfig', 'googleApiReadyService', 'googleApiService',
+   function($window, gooleDriveConfig, googleApiReadyService, googleApiService) {
 
   var authorizeButton;
 
@@ -38,9 +40,14 @@ angular.module('googleDRRrrRrvrr')
           if (! authorizeButton) {
             var messsage = attrs.message || 'Authorize access to Google Drive API';
             authorizeButton = angular.element('<button>' + messsage +'</button>');
-            element.append(authorizeButton);
+
+            //changed from append to replaceWith from unit testing
+            //not sure if this practice is a good practice though
+            //element.append(authorizeButton);
+            element.replaceWith(authorizeButton);
+
             authorizeButton.bind('click', function() {
-              gapi.auth.authorize(
+              googleApiService.authorize(
                 {client_id: gooleDriveConfig.CLIENT_ID, scope: gooleDriveConfig.SCOPES, immediate: false},
                 handleAuthResult);
             });
@@ -49,7 +56,13 @@ angular.module('googleDRRrrRrvrr')
       };
 
       $window.authGoogleApi = function() {
-        gapi.auth.authorize(
+
+        //To improve the user experience, gapi.auth.authorize supports an "immediate" mode,
+        //which refreshes the token without a popup. checkAuth calls authorize with immediate: true
+        //as in the example above.
+        //https://developers.google.com/api-client-library/javascript/features/authentication
+
+        googleApiService.authorize(
           {
             'client_id': gooleDriveConfig.CLIENT_ID,
             'scope': gooleDriveConfig.SCOPES.join(' '),

@@ -2,6 +2,10 @@ angular.module('googleDRRrrRrvrr')
 .factory('googleApiService', ['$http', function($http) {
 
   return {
+    authorize: function(config, callback) {
+      gapi.auth.authorize(config, callback);
+    },
+
     loadDrive: function() {
       return gapi.client.load('drive', 'v2');
     },
