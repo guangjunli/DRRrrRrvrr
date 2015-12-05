@@ -1,5 +1,5 @@
 angular.module('googleDRRrrRrvrr')
-.factory('zombifyService', ['ZOMBIFY_BASE_URL', '$http', '$log', function(ZOMBIFY_BASE_URL, $http, $log) {
+.factory('zombifyService', ['ZOMBIFY_BASE_URL', '$http', '$q', '$log', function(ZOMBIFY_BASE_URL, $http, $q, $log) {
 
   return {
     zombify: function(plainText) {
@@ -10,8 +10,13 @@ angular.module('googleDRRrrRrvrr')
         return response.data.message;
       }, function errorCallback(response) {
         //TODO why the http response "414 Request-URI Too Long" header is NOT reflected in response object??
-        $log.warn("zombifyService returned status " + response.statusText + "(" + response.status + "). " + response.data);
-        return "zombifyService failed.";
+        var msg = "zombifyService returned status " + response.statusText + "(" + response.status + ").";
+        $log.warn(msg);
+
+        //Initially forgot the 'return' which caused undefined to be returned
+        //which is treated as 'resolve' by subsequent promise...
+        //$q.reject(msg);
+        return $q.reject(msg);
       });
     }
   };
