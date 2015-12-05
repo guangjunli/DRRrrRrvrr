@@ -25,9 +25,19 @@ describe('Google Auth Button', function() {
       callback({error: "not authorized yet"});
     });
 
+    var testElement = angular.element('<div id="authorize-div"></div>');
+    console.log(testElement.html()); //<== this will print blank ''. NOTE not sure if it's feature or bug
+
+    testElement = angular.element('<div><div id="authorize-div"></div></div>');
+    console.log(testElement.html()); //<== this will print <div id="authorize-div"></div>
+
+    //TODO from the above two observations, it appears the top-level element is stripped off??
+    //actually .html() gets the content of the element - not the element itself !!!
+
+    var buttonMessage = 'Please Authorize access to Google Drive';
     var authorizeDiv = $compile(
       '<div id="authorize-div">' +
-      '<google-auth-button message="Authorize access to Google Drive"></google-auth-button>' +
+      '<google-auth-button message="' + buttonMessage + '"></google-auth-button>' +
       '</div>'
     )(scope);
 
@@ -43,14 +53,8 @@ describe('Google Auth Button', function() {
     console.log(authorizeDiv.html());
 
     expect(authorizeDiv.children().length).toBe(1);
-    var buttonElement = authorizeDiv.children()[0];
-    //expect(buttonElement.)
-    console.log(buttonElement.html());
-    console.log(buttonElement.name);
-    console.log(buttonElement.attr('message'));
-    //expect(authorizeDiv.html()).toContain("lidless, wreathed in flame, 2 times");
-
-    /*
-      */
+    var buttonElement = authorizeDiv.find('button');
+    expect(buttonElement).toBeDefined();
+    expect(buttonElement.text()).toEqual(buttonMessage);
   });
 });
