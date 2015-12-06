@@ -32,7 +32,7 @@ angular.module('googleDRRrrRrvrr')
           }
 
           vm.loaded = true;
-
+          
           //TODO is it good/efficient to leave the body empty?
           //need to better understand the $digest loop
           /*
