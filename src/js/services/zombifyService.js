@@ -10,7 +10,7 @@ angular.module('googleDRRrrRrvrr')
         return response.data.message;
       }, function errorCallback(response) {
         //TODO why the http response "414 Request-URI Too Long" header is NOT reflected in response object??
-        var msg = "zombifyService returned status " + response.statusText + "(" + response.status + ").";
+        var msg = "zombifyService failed with status " + response.status + " (" + response.statusText + ").";
         $log.warn(msg);
 
         //Initially forgot the 'return' which caused undefined to be returned
