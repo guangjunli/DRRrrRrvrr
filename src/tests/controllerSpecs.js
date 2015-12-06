@@ -73,4 +73,95 @@ describe('Controllers', function() {
     });
 
   });
+
+  describe('DocumentDisplayController', function() {
+    var documentDisplayController,
+        $q,
+        $rootScope,
+        $location,
+        googleDriveService,
+        zombifyService;
+
+    beforeEach(angular.mock.module('googleDRRrrRrvrr'));
+
+    beforeEach(angular.mock.inject(function($controller, _googleDriveService_, _zombifyService_, _$q_, _$rootScope_, _$location_) {
+      googleDriveService = _googleDriveService_;
+      zombifyService = _zombifyService_;
+      $q = _$q_;
+      $rootScope = _$rootScope_;
+      $location = _$location_;
+
+      documentDisplayController = $controller('DocumentDisplayController', {$scope: $rootScope.$new()});
+
+      spyOn($location, "path").and.callFake(function() {
+        return "/view/";
+      });
+
+    }));
+
+    it('should display plain doc and zombified doc', function(){
+      var data = 'doc content';
+      var zombieText = 'zombified doc content';
+
+      spyOn(googleDriveService, "loadDocument").and.callFake(function() {
+        var deferred = $q.defer();
+
+        deferred.resolve(data);
+        return deferred.promise;
+      });
+
+      spyOn(zombifyService, "zombify").and.callFake(function() {
+        var deferred = $q.defer();
+
+        deferred.resolve(zombieText);
+        return deferred.promise;
+      });
+
+      documentDisplayController.displayDocument();
+
+      $rootScope.$digest();
+      expect(documentDisplayController.fileContent).toEqual(data.replace(/\n/g, "<br>"));
+      expect(documentDisplayController.zombieContent).toEqual(zombieText);
+    });
+
+    it('should display plain doc but not zombified doc', function(){
+      var data = 'doc content';
+      var zombieText = 'service not available';
+
+      spyOn(googleDriveService, "loadDocument").and.callFake(function() {
+        var deferred = $q.defer();
+
+        deferred.resolve(data);
+        return deferred.promise;
+      });
+
+      spyOn(zombifyService, "zombify").and.callFake(function() {
+        var deferred = $q.defer();
+
+        deferred.reject(zombieText);
+        return deferred.promise;
+      });
+
+      documentDisplayController.displayDocument();
+
+      $rootScope.$digest();
+      expect(documentDisplayController.fileContent).toEqual(data.replace(/\n/g, "<br>"));
+      expect(documentDisplayController.zombieContent).toEqual('failed to zombify: ' + zombieText);
+    });
+
+    it('should display empty content properly', function(){
+      spyOn(googleDriveService, "loadDocument").and.callFake(function() {
+        var deferred = $q.defer();
+
+        deferred.resolve(undefined);
+        return deferred.promise;
+      });
+
+      documentDisplayController.displayDocument();
+
+      $rootScope.$digest();
+      expect(documentDisplayController.fileContent).toEqual('No content!');
+      expect(documentDisplayController.zombieContent).toEqual('');
+    });
+  });
 });
